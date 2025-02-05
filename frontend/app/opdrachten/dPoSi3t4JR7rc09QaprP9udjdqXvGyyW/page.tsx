@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import QRCode from "react-qr-code";
-import { Camera, RefreshCw, Upload, Info } from "lucide-react";
+import { Camera, RefreshCw, Upload, Info, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,6 +29,8 @@ export default function PhotoAssignment() {
   const [cameraActive, setCameraActive] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const [isCountingDown, setIsCountingDown] = useState(false);
   const webcamRef = useRef<Webcam>(null);
 
   useEffect(() => {
@@ -38,8 +40,31 @@ export default function PhotoAssignment() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (isCountingDown && countdown !== null && countdown > 0) {
+      intervalId = setInterval(() => {
+        setCountdown((prev) => (prev !== null ? prev - 1 : null));
+      }, 1000);
+    } else if (countdown === 0) {
+      capturePhoto();
+      setIsCountingDown(false);
+      setCountdown(null);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [isCountingDown, countdown]);
+
   const startCamera = () => {
     setCameraActive(true);
+  };
+
+  const startCountdown = () => {
+    setCountdown(10);
+    setIsCountingDown(true);
   };
 
   const capturePhoto = useCallback(() => {
@@ -138,12 +163,24 @@ export default function PhotoAssignment() {
                 videoConstraints={{ facingMode: "user" }}
                 className="mb-4 rounded-lg w-full"
               />
-              <Button
-                onClick={capturePhoto}
-                className="bg-flamingo-500 hover:bg-flamingo-600 w-full"
-              >
-                Capture Photo
-              </Button>
+              {countdown !== null && (
+                <div className="mb-4">
+                  <div className="text-4xl font-bold text-flamingo-500 mb-2">
+                    {countdown}
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    Get into position! Photo will be taken automatically...
+                  </p>
+                </div>
+              )}
+              {!isCountingDown && (
+                <Button
+                  onClick={startCountdown}
+                  className="bg-flamingo-500 hover:bg-flamingo-600 w-full"
+                >
+                  <Timer className="mr-2 h-4 w-4" /> Start 10-Second Timer
+                </Button>
+              )}
             </div>
           )}
           {capturedImage && (
@@ -178,8 +215,9 @@ export default function PhotoAssignment() {
         <CardFooter>
           <p className="text-sm text-gray-500 flex items-center">
             <Info className="mr-2 h-4 w-4" />
-            Make sure you&quot;re in a well-lit area and your entire body is
-            visible in the frame.
+            Make sure you&apos;re in a well-lit area and your entire body is
+            visible in the frame. When you start the timer, you&apos;ll have 10
+            seconds to get into position.
           </p>
         </CardFooter>
       </Card>
@@ -196,8 +234,9 @@ export default function PhotoAssignment() {
           </h1>
           <p className="text-center text-lg mb-8">
             Welcome to the Tree Pose Challenge! This assignment will test your
-            balance and focus. Follow the instructions carefully to complete the
-            challenge successfully.
+            balance and focus. After starting the camera, you&apos;ll have a
+            10-second countdown to get into position before the photo is taken
+            automatically.
           </p>
           <div className="flex justify-center">{renderContent()}</div>
         </div>
