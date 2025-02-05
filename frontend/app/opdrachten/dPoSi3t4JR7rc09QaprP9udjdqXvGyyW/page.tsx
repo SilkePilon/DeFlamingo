@@ -92,7 +92,7 @@ export default function PhotoAssignment() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center">
-            <QRCode value="http://192.168.2.18:3000/opdrachten/dPoSi3t4JR7rc09QaprP9udjdqXvGyyW" />
+            <QRCode value="https://outdoorcentrumdeflamlngo.nl/opdrachten/dPoSi3t4JR7rc09QaprP9udjdqXvGyyW" />
           </CardContent>
         </Card>
       );
