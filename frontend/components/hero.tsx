@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
-import { CaptchaModal } from "./captcha-modal"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { CaptchaModal } from "./captcha-modal";
 
 export default function Hero() {
-  const [isCaptchaOpen, setIsCaptchaOpen] = useState(false)
+  const [isCaptchaOpen, setIsCaptchaOpen] = useState(false);
 
   return (
     <section className="relative overflow-hidden">
@@ -19,12 +19,17 @@ export default function Hero() {
             </span>
           </h1>
           <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-            Experience the thrill of outdoor adventures in our beautiful nature reserve.
+            Experience the thrill of outdoor adventures in our beautiful nature
+            reserve.
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 animate-fade-in">
-          <Button size="lg" className="bg-flamingo-500 hover:bg-flamingo-600" onClick={() => setIsCaptchaOpen(true)}>
-            See what's new
+          <Button
+            size="lg"
+            className="bg-flamingo-500 hover:bg-flamingo-600"
+            onClick={() => setIsCaptchaOpen(true)}
+          >
+            See what&quot;s new
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <Button variant="outline" size="lg">
@@ -33,8 +38,10 @@ export default function Hero() {
         </div>
       </div>
       <div className="absolute inset-0 -z-10 bg-[url('/hero-background.jpg')] bg-cover bg-center opacity-20"></div>
-      <CaptchaModal isOpen={isCaptchaOpen} onClose={() => setIsCaptchaOpen(false)} />
+      <CaptchaModal
+        isOpen={isCaptchaOpen}
+        onClose={() => setIsCaptchaOpen(false)}
+      />
     </section>
-  )
+  );
 }
-
