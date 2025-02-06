@@ -230,7 +230,7 @@ export default function PhotoAssignment() {
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-8">
-            Tree Pose Challenge
+            Tree Pose Challenge (2x points)
           </h1>
           <p className="text-center text-lg mb-8">
             Welcome to the Tree Pose Challenge! This assignment will test your
