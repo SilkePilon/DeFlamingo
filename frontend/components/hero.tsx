@@ -15,7 +15,7 @@ export default function Hero() {
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Welcome to{" "}
             <span className="bg-gradient-to-r from-flamingo-500 to-flamingo-700 bg-clip-text text-transparent">
-              De Flamingo
+              De Flamingo (On hold)
             </span>
           </h1>
           <p className="mx-auto max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
